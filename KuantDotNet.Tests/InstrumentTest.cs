@@ -1,13 +1,15 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using KuantDotNet.Instruments;
 
 namespace KuantDotNet.Tests
 {
     [TestClass]
-    public class UnitTest1
+    public class InstrumentTest
     {
         [TestMethod]
-        public void TestMethod1()
+        public void FutureTest()
         {
+            
         }
     }
 }
