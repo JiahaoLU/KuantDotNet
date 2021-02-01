@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\KuantDotNet.Instruments\KuantDotNet.Instruments.csproj" />
+    <ProjectReference Include="..\KuantDotNet.KuantDateTime\KuantDotNet.KuantDateTime.csproj" />
   </ItemGroup>
 
 </Project>

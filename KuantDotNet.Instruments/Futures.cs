@@ -1,11 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using KuantDotNet.KuantDateTime;
 
 namespace KuantDotNet.Instruments
 {
     /// <summary>
-    /// Futures contract model
+    /// <para>Futures contract model</para>
+    /// to do: Datetime scale default to be daily -> monthly, yearly, ...
     /// </summary>
     public class Futures
     {
@@ -26,11 +28,13 @@ namespace KuantDotNet.Instruments
         
         
         /// <summary>
-        /// Converges to spot price when t -> delivery date
+        /// Futures price: Converges to spot price when t -> delivery date
         /// </summary>
         /// <value></value>
         public List<double> UnitPrice { get; set; }
-
+        public int LastDateIdx { get { return UnitPrice.Count - 1; } }
+        
+        
         public double DeliveryUnitPrice { get; }
         public double PriceLimit { get; set; }
         
@@ -41,33 +45,24 @@ namespace KuantDotNet.Instruments
 
         public double MarginAccount { get; set; }
         public double MaintenanceMargin { get; set; }
-        public double InitialMargin { get; }
-        
-        public double Payoff 
+        public double InitialMargin { get; }   
+        public double Payoff
         {
             get{
-                if (Position == LongShort.Long)
-                    return Size * (Asset.GetSpotPriceAsUnderlying() - DeliveryUnitPrice); 
-                else
-                    return - Size * (Asset.GetSpotPriceAsUnderlying() - DeliveryUnitPrice);
+                var span = TimeUtil.DaySpan(ContractDate, DeliveryDate);
+                var payoff = Size * (Asset.SpotPriceAsUnderlying(LastDateIdx) - DeliveryUnitPrice);
+                if (Position == LongShort.Short)
+                    payoff *= -1; 
+                if (span > LastDateIdx + 1)
+                    System.Console.WriteLine("Delivery date has not arrived yet. Payoff calculated using current underlying price");
+                else if (span <= LastDateIdx)
+                    System.Console.WriteLine("Attention: Delivery has been done");
+                return payoff;
             }
-        }
-        /// <summary>
-        /// basis for unit price
-        /// </summary>
-        /// <value></value>
-        public double Basis 
-        {
-            get{
-                if (Asset.IsFinancialAsset)
-                    return UnitPrice.Last() - Asset.GetSpotPriceAsUnderlying();
-                else
-                    return Asset.GetSpotPriceAsUnderlying() - UnitPrice.Last();
-            }
-        }
-        
-        
+           
+        }     
     #endregion
+
     #region Ctor
         public Futures(IUnderlying underlying, double size, double deliveryUnitPrice,
              LongShort position, DateTime deliveryDate, DateTime contractDate,
@@ -84,19 +79,31 @@ namespace KuantDotNet.Instruments
             UnitPrice = new List<double>{ price0 };
             MaintenanceMargin = maintenance;
         }
-    #endregion
-    #region method
-        public void DailySettlement(double spotFuturePrice)
+
+        public Futures()
         {
-            if (Position == LongShort.Long)
-            {
-                MarginAccount += Size * (spotFuturePrice - UnitPrice.Last());
-            }
-            else
-            {
-                MarginAccount -= Size * (spotFuturePrice - UnitPrice.Last());
-            }
-            UnitPrice.Add(spotFuturePrice);
+        }
+        #endregion
+        #region method
+        /// <summary>
+        /// basis for unit price
+        /// </summary>
+        /// <value></value>
+        public double Basis(int idx) 
+        {
+            var basis = UnitPrice[idx] - Asset.SpotPriceAsUnderlying(idx);
+            if (!Asset.IsFinancialAsset)
+                basis *= -1;
+            return basis;
+        }
+        public void DailySettlement(double spotFuturesPrice)
+        {
+            var pnl = Size * (spotFuturesPrice - UnitPrice.Last());
+            if (Position == LongShort.Short)
+                pnl *= -1;
+            MarginAccount += pnl;
+
+            UnitPrice.Add(spotFuturesPrice);
             if (MarginAccount < MaintenanceMargin)
             {
                 MarginCall(true);

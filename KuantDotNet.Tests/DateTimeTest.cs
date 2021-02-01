@@ -1,4 +1,6 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using KuantDotNet.KuantDateTime;
+using System;
 
 namespace KuantDotNet.Tests
 {
@@ -6,10 +8,11 @@ namespace KuantDotNet.Tests
     public class DateTimeTest
     {
         [TestMethod]
-        [Ignore]
         public void DateTest()
         {
-            Assert.AreEqual(1,1);
+            var d1 = new DateTime(2020, 2, 1);
+            var d2 = new DateTime(2020, 2, 10);
+            Assert.AreEqual(TimeUtil.DaySpan(d1, d2), 9);
         }
     }
 }

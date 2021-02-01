@@ -7,9 +7,10 @@ namespace KuantDotNet.Tests
     public class InstrumentTest
     {
         [TestMethod]
+        [Ignore]
         public void FutureTest()
         {
-            
+            var f = new Futures();
         }
     }
 }
