@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using KuantDotNet.KuantDateTime;
 
 namespace KuantDotNet.Instruments
 {
@@ -26,18 +27,8 @@ namespace KuantDotNet.Instruments
             // according to specific commodity
             UnitPrice = Grade * 10; 
         }
-        
-        public List<double> SpotPricesAsUnderlying(int start, int end)
-        {
-            return Enumerable.Repeat(UnitPrice, end - start).ToList(); //simple simul
-        }
 
-        public List<double> SpotPricesAsUnderlying(int end)
-        {
-            return Enumerable.Repeat(UnitPrice, end).ToList();//simple simul
-        }
-
-        public double SpotPriceAsUnderlying(int index)
+        public double SpotPriceAsUnderlying(KDateTime index)
         {
             return UnitPrice; //simple simul
         }

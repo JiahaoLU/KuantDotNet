@@ -23,14 +23,14 @@ namespace KuantDotNet.Instruments
         /// <value></value>
         public double Size { get; }
         public int DeliveryArrange { get; set; }
-        public DateTime DeliveryDate { get; set; }
-        public DateTime ContractDate { get; set; }
+        public KDateTime DeliveryDate { get; set; }
+        public KDateTime ContractDate { get; set; }
         
         
         /// <summary>
         /// Futures price: Converges to spot price when t -> delivery date
         /// </summary>
-        /// <value></value>
+        /// <value>price is daily</value>
         public List<double> UnitPrice { get; set; }
         public int LastDateIdx { get { return UnitPrice.Count - 1; } }
         
@@ -50,7 +50,8 @@ namespace KuantDotNet.Instruments
         {
             get{
                 var span = TimeUtil.DaySpan(ContractDate, DeliveryDate);
-                var payoff = Size * (Asset.SpotPriceAsUnderlying(LastDateIdx) - DeliveryUnitPrice);
+                var lastDate = ContractDate.AddWorkingDays(LastDateIdx + 1);
+                var payoff = Size * (Asset.SpotPriceAsUnderlying(lastDate) - DeliveryUnitPrice);
                 if (Position == LongShort.Short)
                     payoff *= -1; 
                 if (span > LastDateIdx + 1)
@@ -65,7 +66,7 @@ namespace KuantDotNet.Instruments
 
     #region Ctor
         public Futures(IUnderlying underlying, double size, double deliveryUnitPrice,
-             LongShort position, DateTime deliveryDate, DateTime contractDate,
+             LongShort position, KDateTime deliveryDate, KDateTime contractDate,
              double price0, double initMargin, double maintenance)
         {
             Asset = underlying;
@@ -80,9 +81,6 @@ namespace KuantDotNet.Instruments
             MaintenanceMargin = maintenance;
         }
 
-        public Futures()
-        {
-        }
         #endregion
         #region method
         /// <summary>
@@ -91,7 +89,8 @@ namespace KuantDotNet.Instruments
         /// <value></value>
         public double Basis(int idx) 
         {
-            var basis = UnitPrice[idx] - Asset.SpotPriceAsUnderlying(idx);
+            var lastDate = ContractDate.AddWorkingDays(idx + 1);
+            var basis = UnitPrice[idx] - Asset.SpotPriceAsUnderlying(lastDate);
             if (!Asset.IsFinancialAsset)
                 basis *= -1;
             return basis;
@@ -109,6 +108,10 @@ namespace KuantDotNet.Instruments
                 MarginCall(true);
             } 
         }
+        public void Hedge(bool crossHedge=false)
+        {
+            throw new NotImplementedException("Hedge Strategy not implemented yet.");
+        }
 
         private void MarginCall(bool neverDefault)
         {
@@ -117,7 +120,6 @@ namespace KuantDotNet.Instruments
                 MarginAccount = InitialMargin;
             System.Console.WriteLine("Do margin call");
         }
-
     #endregion
 
     }

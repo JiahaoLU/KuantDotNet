@@ -4,14 +4,27 @@ namespace KuantDotNet.KuantDateTime
 {
     public class TimeUtil
     {
-        public static int MonthSpan(DateTime date1, DateTime date2)
+        public static double AccurateYearSpan(KDateTime start, KDateTime end)
         {
-            return date2.Month - date1.Month;
+            return (end - start).Days / 365.25;
+        }
+        public static int YearSpan(KDateTime start, KDateTime end)
+        {
+            return end.Year - start.Year;
+        }
+        public static int MonthSpan(KDateTime start, KDateTime end)
+        {
+            return ((end.Year - start.Year) * 12) + end.Month - start.Month;
         }
 
-        public static int DaySpan(DateTime date1, DateTime date2)
+        public static int DaySpan(KDateTime start, KDateTime end)
         {
-            return Math.Abs((date2 - date1).Days);
+            return (end - start).Days;
+        }
+
+        public static long TickSpan(KDateTime start, KDateTime end)
+        {
+            return start.Ticks - end.Ticks;
         }
     }
 }

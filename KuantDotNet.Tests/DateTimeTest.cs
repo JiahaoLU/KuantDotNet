@@ -10,9 +10,11 @@ namespace KuantDotNet.Tests
         [TestMethod]
         public void DateTest()
         {
-            var d1 = new DateTime(2020, 2, 1);
-            var d2 = new DateTime(2020, 2, 10);
+            var d1 = new KDateTime(2020, 2, 1);
+            var d2 = new KDateTime(2020, 2, 10);
             Assert.AreEqual(TimeUtil.DaySpan(d1, d2), 9);
+            Assert.IsTrue(d1 < d2);
+            Assert.IsTrue(d1 <= d2);
         }
     }
 }
