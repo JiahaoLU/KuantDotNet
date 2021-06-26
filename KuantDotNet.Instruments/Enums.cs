@@ -2,8 +2,8 @@ namespace KuantDotNet.Instruments
 {
     public enum LongShort
     {
-        Long,
-        Short
+        Long = -1,
+        Short = 1
     }
 
 

@@ -17,20 +17,20 @@ namespace KuantDotNet.Instruments
             double price = 0;
             if (asof > StartDate)
             {
-                System.Console.WriteLine("Current date later than start date.");
+                Logger.Warn("Current date later than start date.");
             }
             var cp = ((ConstantValue<double>)Coupon).Constant * Nominal;
             var expiry = (KDateTime)StartDate.Clone();
             for (var i = 0; i < Maturity * (int)PayFreq; i++)
             {
                 expiry = expiry.AddExpiry(PayFreq);
+                
                 if (expiry < asof)
-                {
                     continue;
-                }
+            
                 price += YieldRate.DiscountValue(cp, asof, expiry);
             }
-            if (expiry >= asof)
+            if (asof <= expiry)
                 price += YieldRate.DiscountValue(Nominal, asof, expiry);
             
             return price;
@@ -40,8 +40,10 @@ namespace KuantDotNet.Instruments
         {
             if (asof > StartDate)
             {
-                throw new System.Exception(
+                var ex = new System.Exception(
                     "Asof date must be earlier or same as start date to get par yield.");
+                Logger.Error(ex.Message, ex);
+                throw ex;
             }
             double A = 0;
 

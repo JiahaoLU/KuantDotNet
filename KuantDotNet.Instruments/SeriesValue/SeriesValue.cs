@@ -27,7 +27,7 @@ namespace KuantDotNet.Instruments.SeriesValue
             if (Keys.Contains(label))
                 return Values[Keys.IndexOf(label)];
 
-            return Interpolator<T>.Handler
+            return Interpolator<T>.LinearHandler
                     .Interpolate(Values, Keys, label);
         }
 

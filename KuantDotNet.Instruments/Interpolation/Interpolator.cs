@@ -1,19 +1,23 @@
 using System.Collections.Generic;
+using log4net;
 
 namespace KuantDotNet.Instruments.Interpolation
 {
     public static class Interpolator<T>
     {
+        #region Logger
+            public static ILog Logger { get; }    
+        #endregion
         private static volatile IInterpolator<T> _interpolator;
-        public static IInterpolator<T> Handler
+        public static LinearInterpol<T> LinearHandler
         {
             get { 
-                if (_interpolator == null) 
+                if (_interpolator == null || !(_interpolator is LinearInterpol<T>)) 
                 {
-                    System.Console.WriteLine("Default interpolator : linear");
+                    Logger.Info("Switch interpolator to : linear");
                     _interpolator = new LinearInterpol<T>();
                 }
-                return _interpolator;
+                return (LinearInterpol<T>)_interpolator;
             }
 
             set
@@ -21,7 +25,10 @@ namespace KuantDotNet.Instruments.Interpolation
                 _interpolator = value;
             }
         }     
-
+        static Interpolator()
+        {
+            Logger = LogManager.GetLogger("Interpolator");
+        }
     }
 
     public static class Interpolator
