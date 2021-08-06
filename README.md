@@ -6,5 +6,5 @@ Financial product modeling using:
 
 To do:
 
-1. Complete the part of hedge strategy using futures
+1. Complete interpol, daycount
 2. configure log4net

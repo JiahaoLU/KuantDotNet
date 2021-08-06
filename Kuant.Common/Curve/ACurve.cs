@@ -17,6 +17,8 @@ namespace Kuant.Common
         /// </summary>
         /// <value></value>
         public Frequency CompFreq { get; set; }
+
+        public DayCount DayCount { get; set; }
         
         /// <summary>
         /// 
@@ -24,11 +26,13 @@ namespace Kuant.Common
         /// <param name="rname"></param>
         /// <param name="r"></param>
         /// <param name="cfreq">compounding frequency</param>
-        public ACurve(string rname, ISeriesValue<KDateTime, double> r, Frequency cfreq)
+        public ACurve(string rname, ISeriesValue<KDateTime, double> r, 
+            Frequency cfreq, DayCount dayCount)
         {
             RName = rname;
             Rate = r;
             CompFreq = cfreq;
+            DayCount = dayCount;
         }
 
         /// <summary>

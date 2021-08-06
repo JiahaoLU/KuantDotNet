@@ -70,6 +70,9 @@ namespace Kuant.Utils
             }
             
         }
+        public bool IsWorkingDay(){
+            return !(DT.DayOfWeek == DayOfWeek.Sunday || DT.DayOfWeek == DayOfWeek.Saturday);
+        }
         public static TimeSpan operator -(KDateTime d1, KDateTime d2)
         {
             // to do : offset weekends
