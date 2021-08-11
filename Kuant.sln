@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kuant.Products", "Kuant.Pro
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kuant.Core", "Kuant.Core\Kuant.Core.csproj", "{0645216E-2D70-453C-9155-4B71DEBB2C0B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kuant.Console", "Kuant.Console\Kuant.Console.csproj", "{1A7092A6-A43E-4671-A4AC-F0E4C2F2D947}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -128,5 +130,17 @@ Global
 		{0645216E-2D70-453C-9155-4B71DEBB2C0B}.Release|x64.Build.0 = Release|Any CPU
 		{0645216E-2D70-453C-9155-4B71DEBB2C0B}.Release|x86.ActiveCfg = Release|Any CPU
 		{0645216E-2D70-453C-9155-4B71DEBB2C0B}.Release|x86.Build.0 = Release|Any CPU
+		{1A7092A6-A43E-4671-A4AC-F0E4C2F2D947}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A7092A6-A43E-4671-A4AC-F0E4C2F2D947}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1A7092A6-A43E-4671-A4AC-F0E4C2F2D947}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{1A7092A6-A43E-4671-A4AC-F0E4C2F2D947}.Debug|x64.Build.0 = Debug|Any CPU
+		{1A7092A6-A43E-4671-A4AC-F0E4C2F2D947}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{1A7092A6-A43E-4671-A4AC-F0E4C2F2D947}.Debug|x86.Build.0 = Debug|Any CPU
+		{1A7092A6-A43E-4671-A4AC-F0E4C2F2D947}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1A7092A6-A43E-4671-A4AC-F0E4C2F2D947}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1A7092A6-A43E-4671-A4AC-F0E4C2F2D947}.Release|x64.ActiveCfg = Release|Any CPU
+		{1A7092A6-A43E-4671-A4AC-F0E4C2F2D947}.Release|x64.Build.0 = Release|Any CPU
+		{1A7092A6-A43E-4671-A4AC-F0E4C2F2D947}.Release|x86.ActiveCfg = Release|Any CPU
+		{1A7092A6-A43E-4671-A4AC-F0E4C2F2D947}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

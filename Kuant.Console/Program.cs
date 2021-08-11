@@ -1,4 +1,5 @@
 ﻿using System;
+using Kuant.Products;
 
 namespace Kuant.Console
 {
@@ -6,7 +7,10 @@ namespace Kuant.Console
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            var swaption = new Swaption();
+            swaption.id = 10;
+            // swaption.IUnderlying.Underlying = new Swap();
+            System.Console.ReadLine();
         }
     }
 }

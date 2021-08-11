@@ -10,8 +10,8 @@ namespace Kuant.Common
     /// </summary>
     public class CustomCurve : ACurve
     {
-       public CustomCurve(string rname, SeriesValue<double> r, Frequency cfreq, DayCount dayCount)
-         : base(rname, r, cfreq, dayCount)
+       public CustomCurve(string index, SeriesValue<double> r, Frequency cfreq, DayCount dayCount)
+         : base(index, r, cfreq, dayCount)
         {
         }
 

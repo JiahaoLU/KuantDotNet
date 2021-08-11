@@ -8,7 +8,7 @@ namespace Kuant.Common
 {
     public abstract class ACurve : ICompounding
     {
-        public string RName { get; set; }
+        public string Index { get; set; }
         
         public ISeriesValue<KDateTime, double> Rate { get; set; }
 
@@ -23,13 +23,13 @@ namespace Kuant.Common
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="rname"></param>
+        /// <param name="index"></param>
         /// <param name="r"></param>
         /// <param name="cfreq">compounding frequency</param>
-        public ACurve(string rname, ISeriesValue<KDateTime, double> r, 
+        public ACurve(string index, ISeriesValue<KDateTime, double> r, 
             Frequency cfreq, DayCount dayCount)
         {
-            RName = rname;
+            Index = index;
             Rate = r;
             CompFreq = cfreq;
             DayCount = dayCount;
@@ -48,12 +48,12 @@ namespace Kuant.Common
             if (CompFreq == Frequency.Continuous)
             {
                 return System.Math.Exp(-Rate.GetValue(date) 
-                                    * TimeUtil.AccurateYearSpan(asof, date));
+                                    * TimeUtil.AccurateYearSpan(asof, date, DayCount));
             }
             
             return System.Math.Pow(
                 1 + Rate.GetValue(date) / (int)CompFreq, 
-                -(int)CompFreq * TimeUtil.AccurateYearSpan(asof, date));
+                -(int)CompFreq * TimeUtil.AccurateYearSpan(asof, date, DayCount));
         }
 
         /// <summary>
@@ -69,12 +69,12 @@ namespace Kuant.Common
             if (CompFreq == Frequency.Continuous)
             {
                 return - System.Math.Log(Rate.GetValue(date))
-                                    / TimeUtil.AccurateYearSpan(asof, date);
+                                    / TimeUtil.AccurateYearSpan(asof, date, DayCount);
             }
 
             return (int)CompFreq * (System.Math.Pow(
                                         Rate.GetValue(date), 
-                                        -1 / (int)CompFreq / TimeUtil.AccurateYearSpan(asof, date)) 
+                                        -1 / (int)CompFreq / TimeUtil.AccurateYearSpan(asof, date, DayCount)) 
                                     - 1);
         }
 
