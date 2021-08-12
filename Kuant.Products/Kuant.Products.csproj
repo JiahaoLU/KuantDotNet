@@ -2,6 +2,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Kuant.Common\Kuant.Common.csproj" />
+    <ProjectReference Include="..\Kuant.Config\Kuant.Config.csproj" />
   </ItemGroup>
 
   <PropertyGroup>

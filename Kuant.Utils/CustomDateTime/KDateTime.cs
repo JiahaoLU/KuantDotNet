@@ -126,7 +126,7 @@ namespace Kuant.Utils
 
         public override string ToString()
         {
-            return DT.ToString();
+            return DT.ToString("G", CultureManager.Culture);
         }
 
         public int CompareTo(object obj)

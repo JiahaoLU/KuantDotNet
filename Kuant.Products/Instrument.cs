@@ -1,5 +1,6 @@
 using Kuant.Common;
 using Kuant.Utils;
+using Kuant.Config;
 
 namespace Kuant.Products
 {
@@ -15,14 +16,22 @@ namespace Kuant.Products
         }
         #endregion
 
-        public virtual INotional Notional { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
-        public virtual Ccy Ccy { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
-        public PayOrRecieve PoR { get; set; }
+        public virtual INotional Notional { get; set ; }
+        public virtual Ccy Ccy { get; set; }
+        public PayRecieve PoR { get; set; }
         
         public virtual object Clone()
         {
             throw new System.NotImplementedException();
         }
-
+        public override string ToString()
+        {
+            return string.Join(DefaultConfig.DefaultDataKeyDelimiter,
+                                StartDate,
+                                EndDate,
+                                Ccy,
+                                PoR,
+                                Notional);
+        }
     }
 }

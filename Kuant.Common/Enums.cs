@@ -1,12 +1,28 @@
 namespace Kuant.Common
 {
-     public enum LongShort
+    /// <summary>
+    /// Swap Types
+    /// </summary>
+    public enum PayRecieve
     {
-        Long = -1,
-        Short = 1
+        P,
+        R
     }
 
+    /// <summary>
+    /// Option types
+    /// </summary>
+    public enum CallPut
+    {
+        Call,
+        Put
+    }
 
+    public enum LongShort
+    {
+        Long,
+        Short
+    }
     public enum Ccy
     {
         EUR=1,

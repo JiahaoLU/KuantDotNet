@@ -7,14 +7,15 @@ namespace Kuant.Utils
     /// </summary>
     public static class CultureManager
     {
-        public static CultureInfo _culture = CultureInfo.CurrentCulture;
+        private static CultureInfo _culture = CultureInfo.CurrentCulture;
         public static CultureInfo Culture 
         {get => _culture;
          set {
             _culture = value;
         }}
 
-        public static DateTimeFormatInfo _dateTimeFormat = CultureInfo.CurrentCulture.DateTimeFormat;
+        public static DateTimeFormatInfo DateTimeFormat
+        { get => _culture.DateTimeFormat; } 
 
     }
 }
